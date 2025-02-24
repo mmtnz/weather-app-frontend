@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = process.env.REACT_APP_API_URL;
+const API_BASE_URL = "https://nominatim.openstreetmap.org";
 
 // Create new axios instance
 const api = axios.create({
@@ -11,10 +11,9 @@ const api = axios.create({
     },
 });
 
-
-export const apiGetWeatherData = async (latitude, longitude) =>{
+export const apiReverseLocation = async (latitude, longitude) =>{
     try {
-        const result = await api.get(`/data?latitude=${latitude}&longitude=${longitude}`);
+        const result = await api.get(`/reverse?accept-language=en&format=json&lat=${latitude}&lon=${longitude}`);
         return result.data
     } catch (error) {
         console.log(error)

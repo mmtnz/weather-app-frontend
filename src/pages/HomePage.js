@@ -5,16 +5,25 @@ import WeatherDashboard from "../components/WeatherDashboard";
 import LocationForm from "../components/forms/LocationForm";
 import LocationFormSmall from "../components/forms/LocationFormSmall";
 import MapView from "../components/maps/MapView";
-// import dotenv from "dotenv";
-// dotenv.config();
+import { apiReverseLocation } from "../services/apiReverseLocation";
+
 const HomePage = () => {
 
     const [weatherData, setWeatherData] = useState(null);
-    const [longitude, setLongitude] = useState(null);
-    const [latitude, setLatitude] = useState(null);
     const [error, setError] = useState(null);
+    const [locationName, setLocationName] = useState(null);
     
     const [coordinates, setCoordinates] = useState({lat: 51.5, lng: 0});
+
+    const translateReverseLocation = (reversedLocation) => {
+        if (reversedLocation.address.city) {
+            return `${reversedLocation.address.city}, ${reversedLocation.address.country}`;
+        }
+        if (reversedLocation.address.county) {
+            return `${reversedLocation.address.county}, ${reversedLocation.address.country}`;
+        }
+
+    }
     
     const getWeatherData = async (e) => {
         e.preventDefault();
@@ -25,13 +34,15 @@ const HomePage = () => {
             console.log(response);
             setWeatherData(response);
             setError(null);
+            const reversedLocation = await apiReverseLocation(latitude, longitude);
+            console.log(reversedLocation);
+            setLocationName(translateReverseLocation(reversedLocation));
         } catch (error) {
             console.log(error);
             if (error.response.status === 500) {
                 setError("Bad request");
             }
         }
-        
     };
     
     return (
@@ -48,6 +59,7 @@ const HomePage = () => {
                 <MapView coordinates={coordinates} setCoordinates={setCoordinates}/>
             </div>
             <div className="weather-container">
+                <div>{locationName}</div>
                 {weatherData &&
                     <WeatherDashboard weatherData={weatherData} />
                 }
