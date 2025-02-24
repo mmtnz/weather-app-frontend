@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import { data } from "react-router-dom";
 import { apiGetWeatherData } from "../services/apiWeather";
 import WeatherDashboard from "../components/WeatherDashboard";
@@ -15,28 +15,42 @@ const HomePage = () => {
     
     const [coordinates, setCoordinates] = useState({lat: 51.5, lng: 0});
 
+    useEffect(() => {
+        const latitude = (coordinates.lat).toString().replace(",", ".");
+        const longitude = (coordinates.lng).toString().replace(",", ".");
+        getReverseLocation(latitude, longitude);
+    }, [coordinates]);
+
+    // Write the name of the place depending the precision of the coordinates
     const translateReverseLocation = (reversedLocation) => {
+        if (reversedLocation.address.town) {
+            return `${reversedLocation.address.town}, ${reversedLocation.address.state}, ${reversedLocation.address.country}`;
+        }
         if (reversedLocation.address.city) {
-            return `${reversedLocation.address.city}, ${reversedLocation.address.country}`;
+            return `${reversedLocation.address.city}, ${reversedLocation.address.state}, ${reversedLocation.address.country}`;
+        }
+        if (reversedLocation.address.province) {
+            return `${reversedLocation.address.province}, ${reversedLocation.address.state}, ${reversedLocation.address.country}`;
         }
         if (reversedLocation.address.county) {
-            return `${reversedLocation.address.county}, ${reversedLocation.address.country}`;
+            return `${reversedLocation.address.county}, ${reversedLocation.address.state}, ${reversedLocation.address.country}`;
         }
-
+        return `${reversedLocation.address.state}, ${reversedLocation.address.country}`;
     }
-    
-    const getWeatherData = async (e) => {
+
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        const latitude = (coordinates.lat).toString().replace(",", ".");
+        const longitude = (coordinates.lng).toString().replace(",", ".");
+        await getWeatherData(latitude, longitude);
+    };
+    
+    const getWeatherData = async (latitude, longitude) => {
         try {
-            const latitude = (coordinates.lat).toString().replace(",", ".");
-            const longitude = (coordinates.lng).toString().replace(",", ".");
             const response = await apiGetWeatherData(latitude, longitude);
-            console.log(response);
             setWeatherData(response);
             setError(null);
-            const reversedLocation = await apiReverseLocation(latitude, longitude);
-            console.log(reversedLocation);
-            setLocationName(translateReverseLocation(reversedLocation));
         } catch (error) {
             console.log(error);
             if (error.response.status === 500) {
@@ -44,22 +58,36 @@ const HomePage = () => {
             }
         }
     };
+
+    const getReverseLocation = async () => {
+        try {
+            const latitude = (coordinates.lat).toString().replace(",", ".");
+            const longitude = (coordinates.lng).toString().replace(",", ".");
+            const reversedLocation = await apiReverseLocation(latitude, longitude);
+            console.log(reversedLocation);
+            setLocationName(translateReverseLocation(reversedLocation));
+        } catch (error) {
+            console.log(error);
+            setLocationName("Unknown location");
+        }
+    }
     
     return (
         // <div className="center">
         <div className="content">
             <div className="location-container">
                 <h1>Introduce Location</h1>
+                <div>{locationName}</div>
                 <LocationForm
                     coordinates={coordinates}
                     setCoordinates={setCoordinates}
-                    getWeatherData={getWeatherData}
+                    handleSubmit={handleSubmit}
                 />
                 {error && <p className="error">{error}</p>}
                 <MapView coordinates={coordinates} setCoordinates={setCoordinates}/>
             </div>
             <div className="weather-container">
-                <div>{locationName}</div>
+                
                 {weatherData &&
                     <WeatherDashboard weatherData={weatherData} />
                 }

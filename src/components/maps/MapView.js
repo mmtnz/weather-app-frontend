@@ -17,7 +17,7 @@ const LocationMarker = ({ coordinates, setCoordinates }) => {
         click(e) {
             const { lat, lng } = e?.latlng;
             console.log(lat, lng);
-            setCoordinates({ lat: lat.toFixed(2), lng: lng.toFixed(2)}); // Update parent state
+            setCoordinates({ lat: lat.toFixed(4), lng: lng.toFixed(4)}); // Update parent state
             // setCoordinates({ lat: parseFloat(lat.toFixed(5)), lng: parseFloat(lng.toFixed(5)) }); // Update parent state
         },
     });

@@ -1,8 +1,8 @@
 import React from "react";
 
-const LocationForm = ({coordinates, setCoordinates, getWeatherData}) => {
+const LocationForm = ({coordinates, setCoordinates, handleSubmit}) => {
     return (
-        <form className="custom-form" onSubmit={getWeatherData}>
+        <form className="custom-form" onSubmit={handleSubmit}>
             <div className="form-group">
                 <label htmlFor="latitude">Latitude</label>
                 <input
@@ -17,7 +17,7 @@ const LocationForm = ({coordinates, setCoordinates, getWeatherData}) => {
                     min={-90}
                     max={90}
                     // step="any"
-                    step="0.01"
+                    step="0.0001"
                 />
             </div>
             <div className="form-group">
@@ -32,7 +32,7 @@ const LocationForm = ({coordinates, setCoordinates, getWeatherData}) => {
                     onChange={(e) => {setCoordinates({...coordinates, lng: e.target.value})}}
                     min={-180}
                     max={180}
-                    step="0.01"
+                    step="0.0001"
                 />
             </div>
             
