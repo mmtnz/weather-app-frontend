@@ -67,17 +67,17 @@ const HourlyGraph = ({weatherData, dataType}) => {
         <ResponsiveContainer width="100%" height={300}>
             {dataType === "temp" && (
             <LineChart data={data?.slice(index, Math.min(index + 24, data.length))}>
-                <XAxis dataKey="time" />
+                <XAxis dataKey="time" label={{value: "Hours", position: 'insideBottom', offset: -5}}/>
                 <Tooltip />
-                <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
-                <YAxis unit="°C" domain={[minTemp, maxTemp]}/>
+                {/* <CartesianGrid stroke="#eee" strokeDasharray="5 5" /> */}
+                <YAxis unit="°C" domain={[minTemp, maxTemp]} label={{value: "Temperature", position: 'insideLeft', angle: -90}}/>
                 <Line type="monotone" name="temp" dataKey="temp" stroke="#f00" strokeWidth={2} />
             </LineChart>
             )}
             {dataType === "rain" && (
             <BarChart width={150} height={40} data={data?.slice(index, Math.min(index + 24, data.length))}>
-                <YAxis unit="%" domain={[0, 100]}/>
-                <XAxis dataKey="time" />
+                <YAxis unit="%" domain={[0, 100]} label={{value: "Probability", position: 'insideLeft', angle: -90}}/>
+                <XAxis dataKey="time" label={{value: "Hours", position: 'insideBottom', offset: -5}}/>
                 <Bar dataKey="rain" fill="#8884d8" />
             </BarChart>
             )}

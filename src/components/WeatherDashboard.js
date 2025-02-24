@@ -3,16 +3,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 import DailyGraph from "./graphs/DailyGraph";
 import HourlyGraph from "./graphs/HourlyGraph";
 
-const WeatherDashboard = ({weatherData}) => {
-    const [data2,] = useState([
-        { time: '6 AM', tempMax: 12, tempMin: 8 },
-        { time: '9 AM', tempMax: 16, tempMin: 10 },
-        { time: '12 PM', tempMax: 21, tempMin: 15 },
-        { time: '3 PM', tempMax: 24, tempMin: 18 },
-        { time: '6 PM', tempMax: 20, tempMin: 15 },
-        { time: '9 PM', tempMax: 15, tempMin: 10 },
-    ]);
-    
+const WeatherDashboard = ({weatherData}) => {  
 
     const [dataType, setDataType] = useState('temp');
     const [isDaily, setIsDaily] = useState(true);
@@ -21,7 +12,7 @@ const WeatherDashboard = ({weatherData}) => {
 
     return(
         <div>
-            <h2 className="mt-1">Weather Data</h2>
+            <h1>Weather Data</h1>
             
             <div className="data-type-selector">
                 <label>
