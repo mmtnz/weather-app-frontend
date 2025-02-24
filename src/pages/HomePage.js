@@ -11,12 +11,22 @@ const HomePage = () => {
     const [weatherData, setWeatherData] = useState(null);
     const [longitude, setLongitude] = useState(null);
     const [latitude, setLatitude] = useState(null);
+    const [error, setError] = useState(null);
     
     const getWeatherData = async (e) => {
         e.preventDefault();
-        const response = await apiGetWeatherData(longitude, latitude);
-        console.log(response);
-        setWeatherData(response);
+        try {
+            const response = await apiGetWeatherData(longitude, latitude);
+            console.log(response);
+            setWeatherData(response);
+            setError(null);
+        } catch (error) {
+            console.log(error);
+            if (error.response.status === 500) {
+                setError("Bad request");
+            }
+        }
+        
     };
     
     return (
@@ -32,6 +42,7 @@ const HomePage = () => {
                         setLatitude={setLatitude}
                         getWeatherData={getWeatherData}
                     />
+                    {error && <p className="error">{error}</p>}
                 </>
             ) : (
                 <>
@@ -42,6 +53,7 @@ const HomePage = () => {
                         setLatitude={setLatitude}
                         getWeatherData={getWeatherData}
                     />
+                    {error && <p className="error">{error}</p>}
                     <WeatherDashboard weatherData={weatherData} />
                 </>
             )}

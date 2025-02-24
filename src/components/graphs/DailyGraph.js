@@ -50,7 +50,7 @@ const DailyGraph = ({weatherData, dataType}) => {
             {dataType === "temp" && (
             <LineChart data={data}>
                 <XAxis dataKey="time" label={{value: "Dates", position: 'insideBottom', offset: -5}}/>
-                <YAxis unit="°C" domain={[minTemp, maxTemp]} label={{value: "Temperature", position: 'insideLeft', angle: -90}}/>
+                <YAxis unit="°C" domain={[minTemp, maxTemp]} label={{value: "Temperature", position: 'insideLeft', angle: -90, offset: -5}}/>
                 <Tooltip />
                 {/* <CartesianGrid stroke="#eee" strokeDasharray="5 5" /> */}
                 <Line type="monotone" name="tem max" dataKey="tempMax" stroke="#f00" strokeWidth={2} />
