@@ -12,9 +12,9 @@ const api = axios.create({
 });
 
 
-export const apiGetWeatherData = async (longitude, latitude) =>{
+export const apiGetWeatherData = async (latitude, longitude) =>{
     try {
-        const result = await api.get(`/data?longitude=${longitude}&latitude=${latitude}`);
+        const result = await api.get(`/data?latitude=${latitude}&longitude=${longitude}`);
         console.log(result)
         return result.data
     } catch (error) {

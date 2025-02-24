@@ -4,6 +4,7 @@ import { apiGetWeatherData } from "../services/apiWeather";
 import WeatherDashboard from "../components/WeatherDashboard";
 import LocationForm from "../components/forms/LocationForm";
 import LocationFormSmall from "../components/forms/LocationFormSmall";
+import MapView from "../components/maps/MapView";
 // import dotenv from "dotenv";
 // dotenv.config();
 const HomePage = () => {
@@ -13,10 +14,14 @@ const HomePage = () => {
     const [latitude, setLatitude] = useState(null);
     const [error, setError] = useState(null);
     
+    const [coordinates, setCoordinates] = useState({lat: 51.5, lng: 0});
+    
     const getWeatherData = async (e) => {
         e.preventDefault();
         try {
-            const response = await apiGetWeatherData(longitude, latitude);
+            const latitude = (coordinates.lat).toString().replace(",", ".");
+            const longitude = (coordinates.lng).toString().replace(",", ".");
+            const response = await apiGetWeatherData(latitude, longitude);
             console.log(response);
             setWeatherData(response);
             setError(null);
@@ -30,51 +35,24 @@ const HomePage = () => {
     };
     
     return (
-        <div className="center">
-            <div className="content">
-            {!weatherData ? (
-                <>
-                    <h1>Introduce location</h1>
-                    <LocationForm
-                        longitude={longitude}
-                        setLongitude={setLongitude}
-                        latitude={latitude}
-                        setLatitude={setLatitude}
-                        getWeatherData={getWeatherData}
-                    />
-                    {error && <p className="error">{error}</p>}
-                </>
-            ) : (
-                <>
-                    <LocationFormSmall
-                        longitude={longitude}
-                        setLongitude={setLongitude}
-                        latitude={latitude}
-                        setLatitude={setLatitude}
-                        getWeatherData={getWeatherData}
-                    />
-                    {error && <p className="error">{error}</p>}
-                    <WeatherDashboard weatherData={weatherData} />
-                </>
-            )}
+        // <div className="center">
+        <div className="content">
+            <div className="location-container">
+                <h1>Introduce Location</h1>
+                <LocationForm
+                    coordinates={coordinates}
+                    setCoordinates={setCoordinates}
+                    getWeatherData={getWeatherData}
+                />
+                {error && <p className="error">{error}</p>}
+                <MapView coordinates={coordinates} setCoordinates={setCoordinates}/>
             </div>
-            
-            {/* <form className="custom-form" onSubmit={getWeatherData}>
-                <div className="form-group">
-                    <label htmlFor="longitude">Longitude</label>
-                    <input required type="text" id="longitude" name="longitude" onChange={(e) => {setLongitude(e.target.value)}}/>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="latitude">Latitude</label>
-                    <input required type="text" id="latitude" name="latitude" onChange={(e) => {setLatitude(e.target.value)}}/>
-                </div>
+            <div className="weather-container">
+                {weatherData &&
+                    <WeatherDashboard weatherData={weatherData} />
+                }
+            </div>
 
-                <button type="submit">Get Weather Data</button>
-            </form>
- 
-            {weatherData && (
-                <WeatherDashboard weatherData={weatherData} />
-            )} */}
         </div>
   );
 };

@@ -29,7 +29,7 @@ const DailyGraph = ({weatherData, dataType}) => {
 
 
     const transformDataDaily = (data) => {
-        return data.time.map((time, index) => (
+        return data?.time.map((time, index) => (
             {
                 time: `${time.split('-')[2]}/${time.split('-')[1]}`,
                 tempMax: data.temperature_2m_max[index],
