@@ -104,6 +104,7 @@ const HomePage = () => {
 
                 {error && <p className="error">{error}</p>}
                 <div>{locationName}</div>
+                
                 <MapView coordinates={coordinates} setCoordinates={setCoordinates}/>
             </div>
             <div className="weather-container">
