@@ -8,6 +8,8 @@ A simple, open-source weather application where you can check the weather by:
 
 This project demonstrates the integration of weather APIs with interactive maps using **OpenStreetMap**, providing a clean and intuitive interface.
 
+This project is a solution for the roadmap.sh project: https://roadmap.sh/projects/weather-api-wrapper-service
+
 ---
 
 ## 🚀 Features
