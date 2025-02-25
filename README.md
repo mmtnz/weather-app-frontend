@@ -20,6 +20,7 @@ This project demonstrates the integration of weather APIs with interactive maps 
 ---
 
 ## 📸 Screenshots
+![screenshot](https://github.com/user-attachments/assets/60a5e112-a42e-4f51-a48e-2fa75cb4fed6)
 
 ---
 
