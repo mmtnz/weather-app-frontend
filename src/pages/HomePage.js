@@ -14,7 +14,7 @@ const HomePage = () => {
     const [locationName, setLocationName] = useState(null);
     const [searchLocationName, setSearchLocationName] = useState("");
     const [coordinates, setCoordinates] = useState({lat: 51.5, lng: 0});
-    const [searchByCoordinates, setSearchByCoordinates] = useState(false);
+    const [searchByCoordinates, setSearchByCoordinates] = useState(true);
 
     useEffect(() => {
         const latitude = (coordinates.lat).toString().replace(",", ".");
@@ -103,7 +103,7 @@ const HomePage = () => {
                 )}
 
                 {error && <p className="error">{error}</p>}
-                <div>{locationName}</div>
+                <div className="location-name-container">{locationName}</div>
                 
                 <MapView coordinates={coordinates} setCoordinates={setCoordinates}/>
             </div>

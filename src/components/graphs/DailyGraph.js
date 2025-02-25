@@ -52,8 +52,9 @@ const DailyGraph = ({weatherData, dataType}) => {
                 <XAxis dataKey="time" label={{value: "Dates", position: 'insideBottom', offset: -5}}/>
                 <YAxis unit="°C" domain={[minTemp, maxTemp]} label={{value: "Temperature", position: 'insideLeft', angle: -90, offset: -5}}/>
                 <Tooltip />
+                <Legend verticalAlign="bottom" align="right"/>
                 {/* <CartesianGrid stroke="#eee" strokeDasharray="5 5" /> */}
-                <Line type="monotone" name="tem max" dataKey="tempMax" stroke="#f00" strokeWidth={2} />
+                <Line type="monotone" name="max" dataKey="tempMax" stroke="#f00" strokeWidth={2} />
                 <Line type="monotone" name="min" dataKey="tempMin" stroke="#00f" strokeWidth={2} />
             </LineChart>
             )}
