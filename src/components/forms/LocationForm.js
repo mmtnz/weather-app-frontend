@@ -11,13 +11,10 @@ const LocationForm = ({coordinates, setCoordinates, handleSubmit}) => {
                     id="latitude"
                     name="latitude"
                     value={coordinates.lat}
-                    // onChange={(e) => {setLatitude(e.target.value)}}
-                    // onChange={(e) => {setCoordinates({...coordinates, lat: e.target.value !== "" ? parseFloat(e.target.value) : null})}}
                     onChange={(e) => {setCoordinates({...coordinates, lat: e.target.value})}}
                     min={-90}
                     max={90}
-                    // step="any"
-                    step="0.0001"
+                    step="0.0001"  // 4 decimals
                 />
             </div>
             <div className="form-group">
@@ -28,15 +25,12 @@ const LocationForm = ({coordinates, setCoordinates, handleSubmit}) => {
                     id="longitude"
                     name="longitude"
                     value={coordinates.lng}
-                    // onChange={(e) => {setLongitude(e.target.value)}}
                     onChange={(e) => {setCoordinates({...coordinates, lng: e.target.value})}}
                     min={-180}
                     max={180}
-                    step="0.0001"
+                    step="0.0001"  // 4 decimals
                 />
             </div>
-            
-
             <button type="submit">Get Weather Data</button>
         </form>
     )

@@ -1,19 +1,20 @@
 import React, {useEffect, useState} from "react";
-import { data } from "react-router-dom";
 import { apiGetWeatherData } from "../services/apiWeather";
 import WeatherDashboard from "../components/WeatherDashboard";
 import LocationForm from "../components/forms/LocationForm";
-import LocationFormSmall from "../components/forms/LocationFormSmall";
 import MapView from "../components/maps/MapView";
-import { apiReverseLocation } from "../services/apiReverseLocation";
+import NameForm from "../components/forms/NameForm";
+import { apiGetCoordinates, apiReverseLocation } from "../services/apiGetCoordinates";
+import translateReverseLocation from "../utils/translateReverseLocation";
 
 const HomePage = () => {
 
     const [weatherData, setWeatherData] = useState(null);
     const [error, setError] = useState(null);
     const [locationName, setLocationName] = useState(null);
-    
+    const [searchLocationName, setSearchLocationName] = useState("");
     const [coordinates, setCoordinates] = useState({lat: 51.5, lng: 0});
+    const [searchByCoordinates, setSearchByCoordinates] = useState(false);
 
     useEffect(() => {
         const latitude = (coordinates.lat).toString().replace(",", ".");
@@ -21,31 +22,31 @@ const HomePage = () => {
         getReverseLocation(latitude, longitude);
     }, [coordinates]);
 
-    // Write the name of the place depending the precision of the coordinates
-    const translateReverseLocation = (reversedLocation) => {
-        if (reversedLocation.address.town) {
-            return `${reversedLocation.address.town}, ${reversedLocation.address.state}, ${reversedLocation.address.country}`;
-        }
-        if (reversedLocation.address.city) {
-            return `${reversedLocation.address.city}, ${reversedLocation.address.state}, ${reversedLocation.address.country}`;
-        }
-        if (reversedLocation.address.province) {
-            return `${reversedLocation.address.province}, ${reversedLocation.address.state}, ${reversedLocation.address.country}`;
-        }
-        if (reversedLocation.address.county) {
-            return `${reversedLocation.address.county}, ${reversedLocation.address.state}, ${reversedLocation.address.country}`;
-        }
-        return `${reversedLocation.address.state}, ${reversedLocation.address.country}`;
-    }
-
-
+    // Handle form submit when using coordinates
     const handleSubmit = async (e) => {
         e.preventDefault();
         const latitude = (coordinates.lat).toString().replace(",", ".");
         const longitude = (coordinates.lng).toString().replace(",", ".");
         await getWeatherData(latitude, longitude);
     };
+
+    // Handle form submit when using location name
+    const handleSubmitByName = async (e) => {
+        e.preventDefault();
+        try {
+            // Get coordinates from location name
+            const response = await apiGetCoordinates(searchLocationName);
+            const latitude = response.lat;
+            const longitude = response.lon;
+            setCoordinates({lat: latitude, lng: longitude});
+            await getWeatherData(latitude, longitude);
+        } catch (error) {
+            console.log(error);
+            setError("Location not found");
+        }
+    }
     
+    // Queries weather data from api
     const getWeatherData = async (latitude, longitude) => {
         try {
             const response = await apiGetWeatherData(latitude, longitude);
@@ -59,6 +60,7 @@ const HomePage = () => {
         }
     };
 
+    // Get the name of the location
     const getReverseLocation = async () => {
         try {
             const latitude = (coordinates.lat).toString().replace(",", ".");
@@ -73,21 +75,39 @@ const HomePage = () => {
     }
     
     return (
-        // <div className="center">
         <div className="content">
             <div className="location-container">
                 <h1>Introduce Location</h1>
-                <div>{locationName}</div>
-                <LocationForm
-                    coordinates={coordinates}
-                    setCoordinates={setCoordinates}
-                    handleSubmit={handleSubmit}
-                />
+                <label htmlFor="daily">
+                    <input
+                        type="checkbox"
+                        name="searchByCoordinates"
+                        checked={searchByCoordinates}
+                        onChange={() => {setSearchByCoordinates(!searchByCoordinates)}}
+                    />
+                    Search by coordinates
+                </label>
+
+                {searchByCoordinates ? (
+                    <LocationForm
+                        coordinates={coordinates}
+                        setCoordinates={setCoordinates}
+                        handleSubmit={handleSubmit}
+                    />
+                ):(
+                    <NameForm
+                        name={searchLocationName}
+                        setName={setSearchLocationName}
+                        handleSubmit={handleSubmitByName}
+                    />
+                )}
+
                 {error && <p className="error">{error}</p>}
+                <div>{locationName}</div>
                 <MapView coordinates={coordinates} setCoordinates={setCoordinates}/>
             </div>
             <div className="weather-container">
-                
+                <h1>Weather Data</h1>
                 {weatherData &&
                     <WeatherDashboard weatherData={weatherData} />
                 }

@@ -12,7 +12,7 @@ const WeatherDashboard = ({weatherData}) => {
 
     return(
         <>
-            <h1>Weather Data</h1>
+            {/* <h1>Weather Data</h1> */}
             
             <div className="data-type-selector">
                 <label>
