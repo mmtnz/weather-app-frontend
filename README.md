@@ -1,70 +1,105 @@
-# Getting Started with Create React App
+# 🌦️ Dummy Weather App Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A simple, open-source weather application where you can check the weather by:
 
-## Available Scripts
+- 🌍 Selecting a **location by name**  
+- 📍 Providing **coordinates** (latitude & longitude)  
+- 🗺️ **Clicking directly** on an **interactive OpenStreetMap**  
 
-In the project directory, you can run:
+This project demonstrates the integration of weather APIs with interactive maps using **OpenStreetMap**, providing a clean and intuitive interface.
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 🚀 Features
+- 🔍 Search weather by **location name**  
+- 🌐 Get weather details using **latitude and longitude**  
+- 🗺️ **Click on the map** to fetch weather data for any location
+- 🎨 Responsive and user-friendly UI
+- This project is thought to be used with this backend: . However, it can query the data directñy from an open source API. 
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## 📸 Screenshots
+![screenshot](https://github.com/user-attachments/assets/60a5e112-a42e-4f51-a48e-2fa75cb4fed6)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## 💻 Tech Stack
+- ⚛️ **React** – Frontend framework  
+- 🗺️ **React-Leaflet** – For interactive OpenStreetMap integration  
+- 🌦️ **OpenWeatherMap API** – To fetch weather data  
+- 📦 **Axios** – For API requests  
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🚀 Getting Started
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 🔧 Prerequisites
+- Node.js and npm installed
 
-### `npm run eject`
+### 📥 Installation Steps
+Follow these steps to set up the project locally:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+#### 1️⃣ **Clone the repository**
+```bash
+git clone https://github.com/mmtnz/weather-app-frontend.git
+cd weather-app-frontend
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+#### 2️⃣ **Install dependencies**
+```bash
+npm install
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+#### 3️⃣ **Add API Key**
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+#### 4️⃣ **Run the application**
+```bash
+npm start
+```
 
-## Learn More
+#### 5️⃣ **View the application**
+Open your browser and visit:
+```bash
+http://localhost:3000
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Default port is 3000. It might differ if it is already in use. To choose the port use this:
+```bash
+set PORT=<custom-port>&&npm start
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 🌈 Contributing
+🙌 Contributions are welcome!
 
-### Code Splitting
+To contribute:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- 1 **Fork the repository.**
+- 2 **Create your branch:**
 
-### Analyzing the Bundle Size
+```bash
+git checkout -b feature/YourFeature
+```
+- 3 **Commit your changes:**
+```bash
+git commit -m 'Add your feature'
+```
+- 4 **Push to the branch:**
+```bash
+git push origin feature/YourFeature
+```
+- 5 **Open a pull request and describe your changes.**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+---
 
-### Making a Progressive Web App
+## 🛡️ License
+This project is licensed under the MIT License – see the LICENSE file for details.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+---
 
-### Advanced Configuration
+## 💬 Acknowledgements
+🗺️ OpenStreetMap for map tiles  
+🔗 React-Leaflet for map integration  
+🌦️ Open-meteo for weather data 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---

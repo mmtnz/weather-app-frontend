@@ -11,9 +11,7 @@ const WeatherDashboard = ({weatherData}) => {
 
 
     return(
-        <div>
-            <h1>Weather Data</h1>
-            
+        <>           
             <div className="data-type-selector">
                 <label>
                     <input
@@ -48,7 +46,7 @@ const WeatherDashboard = ({weatherData}) => {
             ) : (
                 <HourlyGraph weatherData={weatherData} dataType={dataType}/>
             )}
-        </div>
+        </>
     )
 };
 export default WeatherDashboard;
